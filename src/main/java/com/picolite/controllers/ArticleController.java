@@ -3,8 +3,13 @@ package com.picolite.controllers;
 
 import com.picolite.fakedb.FakeDB;
 import com.picolite.models.Article;
+import com.picolite.models.ArticleContainer;
 import com.picolite.tools.FancyText;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,16 +19,31 @@ import org.springframework.web.servlet.ModelAndView;
 public class ArticleController {
 
 
+    @CrossOrigin
+    @RequestMapping(value = "/articles/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Article> getArticle(@PathVariable("id") Long articleId)
+    {
+        System.out.println("Retrieving article " + articleId);
 
-
-    @RequestMapping("/article/{id}")
-    public ModelAndView articleGet(@PathVariable("id") Integer articleId) {
-        System.out.println("Getting article " + articleId);
         Article a = FakeDB.fetchArticle(articleId);
-        ModelAndView mav = new ModelAndView("article");
-        mav.addObject("title",a.getTitle());
-        mav.addObject("game",a.getGameName());
-        mav.addObject("content", FancyText.convert(a.getContent()));
-        return mav;
+
+        //punch up content
+        a.setContent(FancyText.convert(a.getContent()));
+
+        return new ResponseEntity<Article>(a, HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/articles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArticleContainer> getAllArticles()
+    {
+        System.out.println("Fetching all articles");
+
+        ArticleContainer articleContainer = new ArticleContainer();
+
+        articleContainer.setArticles(FakeDB.allArticles());
+
+        return new ResponseEntity<ArticleContainer>(articleContainer, HttpStatus.OK);
+    }
+
 }

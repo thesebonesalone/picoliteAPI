@@ -1,7 +1,9 @@
 package com.picolite.models;
 
 
-public class Article {
+import java.io.Serializable;
+
+public class Article implements Serializable {
 
     public Long getId() {
         return id;

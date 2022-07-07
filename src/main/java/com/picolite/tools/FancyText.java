@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 
 public class FancyText {
 
+
+
     public static State state = State.STANDARD;
 
     private static String codeopen = "<blockquote class=\"blockquote\"><p>";
@@ -41,7 +43,8 @@ public class FancyText {
             String tester = excecution.execute(inputArr[i]);
             output += " " + tester;
         }
-        return output;
+        System.out.println(output + "</p>");
+        return output + "</p>";
     }
 
     static class Standard implements SwitchFunc
@@ -50,7 +53,7 @@ public class FancyText {
         @Override
         public String execute(String input) {
             switch (input){
-                case "/*/":
+                case "*/*":
                     state = State.CODE;
                     return codeopen;
                 case "<<":
@@ -70,7 +73,7 @@ public class FancyText {
         {
             switch (input)
             {
-                case "/*/":
+                case "*/*":
                     state = State.STANDARD;
                     return codeclose;
                 case "\n":

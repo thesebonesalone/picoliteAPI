@@ -16,22 +16,5 @@ import org.springframework.web.servlet.View;
 
 @Controller
 public class IndexController {
-
-
-    @RequestMapping("")
-    public String home(Model model)
-    {
-        ArticleContainer articleContainer = new ArticleContainer();
-        articleContainer.setArticles(FakeDB.allArticles());
-        model.addAttribute("Articles", articleContainer);
-        return "index";
-    }
-
-
-
-    public String randomLandingMessage()
-    {
-        String[] handle = new String[]{"Welcome!", "Something Exciting!", "Something Less Exciting!"};
-        return StringTools.getRandom(handle);
-    }
+    
 }
