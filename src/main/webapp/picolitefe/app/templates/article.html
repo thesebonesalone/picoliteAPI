@@ -6,9 +6,10 @@
     </div>
     <div class="">
         <h1>Comments</h1>
+        <div *ng-if="warning" class="alert-danger">{{message}}</div>
         <form novalidate class="simple-form">
-            <input type="text" ng-model="user" ng-required="expression" placeholder="username"/>
-            <textarea class="form-control" rows="3" ng-model="comment"></textarea>
+            <input type="text" ng-model="user" ng-change="deferWarning()" ng-required="expression" placeholder="username"/>
+            <textarea class="form-control" rows="3" ng-model="comment" ng-change="deferWarning()"></textarea>
             <input type="submit" ng-click="update(comment, user)" value="Submit">
         </form>
 

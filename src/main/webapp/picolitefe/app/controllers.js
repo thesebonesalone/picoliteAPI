@@ -4,6 +4,13 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
     $scope.shownArticles = [];
 
+    $scope.warning = false;
+
+    $scope.message = "";
+
+    $scope.user = "";
+    $scope.comment = "";
+
     articleApiService.getArticles().then(function(response) {
         $scope.articles = response.data.articles;
     }).finally(() => {
@@ -30,8 +37,20 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
     $scope.update = function(comment, user)
     {
+        if ($scope.user === "" || $scope.comment === "")
+        {
+            $scope.warning = true;
+            $scope.message = "Please fill out required forms!";
+            return;
+        }
         $scope.comments.push({comment: comment, name: user});
         $scope.comment = "";
         $scope.user = "";
+    }
+
+    $scope.deferWarning = function()
+    {
+        $scope.warning = false;
+        $scope.message = "";
     }
 })
