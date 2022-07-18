@@ -25,7 +25,7 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
 
 })
-.controller('articleController', ($scope, $routeParams, articleApiService) => {
+.controller('articleController', ($scope, $routeParams, $route, articleApiService) => {
     $scope.id = $routeParams.id;
     $scope.articleObject = {article: null}
 
@@ -35,17 +35,16 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
     $scope.comments = [];
 
-    $scope.update = function(comment, user)
+    $scope.update = function(event, comment, user)
     {
         if ($scope.user === "" || $scope.comment === "")
         {
             $scope.warning = true;
             $scope.message = "Please fill out required forms!";
+            event.preventDefault();
             return;
         }
         $scope.comments.push({comment: comment, name: user});
-        $scope.comment = "";
-        $scope.user = "";
     }
 
     $scope.deferWarning = function()
