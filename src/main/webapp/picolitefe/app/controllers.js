@@ -19,7 +19,7 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
     $scope.update = (filter) => {
         $scope.shownArticles = $scope.articles.filter((e) => {
-            return e.title.includes(filter);
+            return e.title.toLowerCase().includes(filter.toLowerCase());
         })
     }
 

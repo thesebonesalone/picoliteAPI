@@ -6,6 +6,15 @@ body {
   margin-bottom: 25rem;
 }
 
+blockquote {
+  background: #999999;
+  color: #222222;
+  font-family: "Lucida Console";
+  border-color: #ff78b7;
+  border-width: 2rem;
+  border-radius: 1%;
+}
+
 h1 {
   color: #ff78b7;
   font-family: "Monaco", sans-serif;
