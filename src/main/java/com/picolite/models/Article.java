@@ -1,47 +1,41 @@
 package com.picolite.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table(name="article")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Article implements Serializable {
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="title")
     private String title;
 
+    @Column(name="content")
     private String content;
 
-    private String gameName;
+    @Column(name="game_url")
+    private String game_url;
 
-    public String getTitle() {
-        return title;
-    }
+    @OneToMany(mappedBy="article", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JsonIgnore
+    private List<Comment> comments;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
 }

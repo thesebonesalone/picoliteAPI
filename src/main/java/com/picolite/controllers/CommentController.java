@@ -1,35 +1,75 @@
 package com.picolite.controllers;
 
+import com.picolite.models.Article;
 import com.picolite.models.Comment;
+import com.picolite.models.transfers.CommentTransfer;
+import com.picolite.services.ArticleService;
+import com.picolite.services.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class CommentController {
 
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private ArticleService articleService;
+
     @CrossOrigin
-    @PostMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Comment> postComment(@RequestParam("username") String username, @RequestParam("content") String content)
+    @RequestMapping(value = "/comments/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Comment> getComment(@PathVariable("id") Long id)
     {
-        Comment c = new Comment();
-        c.setContent(content);
-        c.setUsername(username);
-        System.out.println(username + " : " + content);
-        //this is where the comment would be saved
-        return new ResponseEntity<>(new Comment(), HttpStatus.OK);
+        Comment c = commentService.findById(id);
+        if (c != null)
+        {
+            return new ResponseEntity<>(c, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @CrossOrigin
-    @GetMapping(value = "/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Comment> getComment()
+    @RequestMapping(value = "/comments/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteComment(@PathVariable("id") Long id)
     {
-        Comment comment = new Comment();
-        comment.setUsername("Test Username");
-        comment.setContent("Test Comment");
+        try {
+            commentService.delete(id);
+        } catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
-        return new ResponseEntity<>(comment,HttpStatus.OK);
+    @CrossOrigin
+    @RequestMapping(value="/comments/article/{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public ResponseEntity<List<Comment>> getArticleComments(@PathVariable("id") Long id)
+    {
+        System.out.println("Loading comments for " + id);
+        List<Comment> a = articleService.getCommentsByArticle(id);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
+    @CrossOrigin
+    @RequestMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public ResponseEntity<Comment> createOrUpdateComment(@RequestBody CommentTransfer c)
+    {
+        System.out.println(c.getContent());
+        Comment comment = c.convert(articleService);
+        if (comment.getId() == 0)
+        {
+            this.commentService.create(comment);
+            return new ResponseEntity<>(comment, HttpStatus.CREATED);
+        } else {
+            this.commentService.update(comment);
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        }
     }
 }

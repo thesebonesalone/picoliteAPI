@@ -1,7 +1,6 @@
 package com.picolite.controllers;
 
 
-import com.picolite.fakedb.FakeDB;
 import com.picolite.models.ArticleContainer;
 import com.picolite.tools.StringTools;
 import org.springframework.http.HttpRequest;
