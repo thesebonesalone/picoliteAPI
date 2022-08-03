@@ -72,7 +72,7 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
             $scope.comment = "";})
         }
 
-        articleApiService.createComment(data, callback)
+        articleApiService.createComment(data,() => {callback})
     }
 
     $scope.deferWarning = function()

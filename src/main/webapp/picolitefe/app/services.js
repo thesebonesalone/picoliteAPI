@@ -39,14 +39,15 @@ angular.module('PicoLiteMVC.services', [])
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: data
+            data: angular.toJson(data)
 
         }
         $http(request).then((resp) => {
-            callback
-        },() => {
-            callback
-            console.log("The method is live, but the thing is broke")
+            console.log(resp)
+            callback;
+        }, (err) => {
+            console.log("in error")
+            console.log(err)
         })
     }
 

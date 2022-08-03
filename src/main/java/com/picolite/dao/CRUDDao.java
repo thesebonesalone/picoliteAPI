@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface CRUDDao<T, ID> {
 
-    public T create(T object);
-    public void update(T object);
-    public List<T> findAll();
-    public T getById(ID id);
-    public void delete(ID id) throws Exception;
+    T create(T object);
+    void update(T object);
+    List<T> findAll();
+    T getById(ID id);
+    void delete(ID id) throws Exception;
 
 }

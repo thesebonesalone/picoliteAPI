@@ -6,7 +6,6 @@ import com.picolite.models.Comment;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -45,6 +43,7 @@ public class ArticleDaoImpl implements ArticleDao {
         session.update(object);
     }
 
+    //hql literally the most basic call
     @Override
     public List<Article> findAll() {
         Session session = this.sessionFactory.getCurrentSession();
@@ -55,6 +54,7 @@ public class ArticleDaoImpl implements ArticleDao {
         return articleList;
     }
 
+    //criteria
     @Override
     public Article getById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -63,8 +63,7 @@ public class ArticleDaoImpl implements ArticleDao {
         Root<Article> root = cr.from(Article.class);
         cr.where(cb.equal(root.get("id"), aLong));
         TypedQuery<Article> query = session.createQuery(cr);
-        Article result = query.getSingleResult();
-        return result;
+        return query.getSingleResult();
     }
 
     @Override
@@ -84,7 +83,6 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public List<Comment> getAllCommentsWithArticleId(Long articleId) {
-        Session session = this.sessionFactory.getCurrentSession();
         Article a = getById(articleId);
         return a.getComments();
     }

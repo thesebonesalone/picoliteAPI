@@ -49,7 +49,7 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public Comment getById(Long aLong) {
         Session session = this.sessionFactory.getCurrentSession();
-        Comment c = (Comment)session.get(Comment.class, new Long(aLong));
+        Comment c = session.get(Comment.class, new Long(aLong));
         log.info("Fetched Comment with ID: " + aLong);
         return c;
     }

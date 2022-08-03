@@ -1,6 +1,5 @@
 package com.picolite.controllers;
 
-import com.picolite.models.Article;
 import com.picolite.models.Comment;
 import com.picolite.models.transfers.CommentTransfer;
 import com.picolite.services.ArticleService;
@@ -61,7 +60,6 @@ public class CommentController {
     @RequestMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<Comment> createOrUpdateComment(@RequestBody CommentTransfer c)
     {
-        System.out.println(c.getContent());
         Comment comment = c.convert(articleService);
         if (comment.getId() == 0)
         {

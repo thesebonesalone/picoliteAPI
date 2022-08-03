@@ -1,14 +1,12 @@
 package com.picolite.models.transfers;
 
 
-import com.picolite.dao.ArticleDao;
 import com.picolite.models.Comment;
 import com.picolite.services.ArticleService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -19,10 +17,6 @@ import java.io.Serializable;
 @Setter
 @Component
 public class CommentTransfer implements Serializable {
-
-    @Autowired
-    private ArticleDao articleDao;
-
 
     private Long id;
 
