@@ -1,7 +1,7 @@
 angular.module('PicoLiteMVC.services', [])
 .factory('articleApiService', function($http) {
     var articleApi = {};
-
+    console.log("This is a test of the JS Bootstrapping")
     articleApi.getArticles = function() {
 
 

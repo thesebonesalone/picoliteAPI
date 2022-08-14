@@ -16,12 +16,12 @@
         <ng-view></ng-view>
 </div>
 
-<script src="/js/picolitefe/app/lib/angular/angular.js"></script>
-<script src="/js/picolitefe/app/lib/angular/angular.js"></script>
-<script src="/js/picolitefe/app/lib/angular-route/angular-route.js"></script>
-<script src="/js/picolitefe/app/app.js"></script>
-<script src="/js/picolitefe/app/services.js"></script>
-<script src="/js/picolitefe/app/controllers.js"></script>
-<script src="/js/picolitefe/app/lib/angular-sanitize/angular-sanitize.js"></script>
+        <script src="/static/js/picolitefe/app/lib/angular/angular.js"></script>
+        <script src="/static/js/picolitefe/app/lib/angular/angular.js"></script>
+        <script src="/static/js/picolitefe/app/lib/angular-route/angular-route.js"></script>
+        <script src="/static/js/picolitefe/app/app.js"></script>
+        <script src="/static/js/picolitefe/app/services.js"></script>
+        <script src="/static/js/picolitefe/app/controllers.js"></script>
+        <script src="/static/js/picolitefe/app/lib/angular-sanitize/angular-sanitize.js"></script>
 </body>
 </html>
