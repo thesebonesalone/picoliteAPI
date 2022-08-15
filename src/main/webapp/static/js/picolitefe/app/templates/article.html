@@ -9,7 +9,7 @@
         <h1>Comments</h1>
         <iframe name="dummy" id="dummyframe" style="display:none;"></iframe>
         <div *ng-if="warning" class="alert-danger">{{message}}</div>
-        <form novalidate method="post" action="http://localhost:8080/picolitemvc/comments" target="dummy">
+        <form novalidate>
             <input type="text" name="username" ng-model="user" ng-change="deferWarning()" ng-required="expression" placeholder="username"/>
             <textarea type="text" class="form-control" name="comment" rows="3" ng-model="comment" ng-change="deferWarning()"></textarea>
             <input type="submit" ng-click="update($event, comment, user)" value="Submit">

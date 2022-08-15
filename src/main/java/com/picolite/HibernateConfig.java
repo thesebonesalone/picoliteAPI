@@ -1,7 +1,6 @@
 package com.picolite;
 
-import com.picolite.models.Article;
-import com.picolite.models.Comment;
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class HibernateConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
         //factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(Article.class, Comment.class);
         factoryBean.setHibernateProperties(hibernateProperties());
         return factoryBean;
     }

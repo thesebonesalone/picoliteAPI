@@ -4,18 +4,23 @@ angular.module('PicoLiteMVC.services', [])
     console.log("This is a test of the JS Bootstrapping")
     articleApi.getArticles = function() {
 
-
-        let test = $http.get('http://localhost:8080/picolitemvc/articles');
-        return test;
+        var request = {
+            method: "GET",
+            url: "http://localhost:8081/articles",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        return $http(request);
     }
 
     articleApi.getArticle = function(id) {
-        return $http.get('http://localhost:8080/picolitemvc/articles/' + id);
+        return $http.get('http://localhost:8081/articles/' + id);
     }
     articleApi.saveArticle = function(data,scope, location) {
         var request = {
             method: "POST",
-            url: "http://localhost:8080/picolitemvc/articles",
+            url: "http://localhost:8081/articles/",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -35,7 +40,7 @@ angular.module('PicoLiteMVC.services', [])
     {
         var request = {
             method: "POST",
-            url: "http://localhost:8080/picolitemvc/comments/",
+            url: "http://localhost:8081/comments",
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -52,13 +57,13 @@ angular.module('PicoLiteMVC.services', [])
     }
 
     articleApi.loadComments = function(id) {
-        return data = $http.get("http://localhost:8080/picolitemvc/comments/article/" + id);
+        return data = $http.get("http://localhost:8081/comments/article/" + id);
     }
 
     articleApi.deleteArticle = function(location, id) {
         var request = {
             method: "DELETE",
-            url: "http://localhost:8080/picolitemvc/articles/" + id
+            url: "http://localhost:8081/articles/" + id
         }
         $http(request).then((resp) => {
             location.path('/home');

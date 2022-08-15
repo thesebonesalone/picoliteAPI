@@ -12,7 +12,8 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
     $scope.comment = "";
 
     articleApiService.getArticles().then(function(response) {
-        $scope.articles = response.data.articles;
+        $scope.articles = response.data;
+        console.log(response)
     }).finally(() => {
         $scope.update("");
     })
@@ -30,22 +31,12 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
 
     articleApiService.getArticle($scope.id).then((resp) => {
         $scope.articleObject.article = resp.data;
-        console.log($scope.articleObject.article.comments)
-    })
-    articleApiService.loadComments($scope.id).then((resp) => {
-        resp.data.forEach((e) => {
-            $scope.comments.push(e)
-            console.log(e);
-        })
+        $scope.comments = resp.data.comments;
 
     })
-
-
 
     $scope.update = function(event)
     {
-        console.log($scope.comment + " comment is")
-        console.log($scope.user + " user is")
         if ($scope.user === "" || $scope.comment === "")
         {
             $scope.warning = true;
@@ -71,8 +62,7 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
             $scope.user = "";
             $scope.comment = "";})
         }
-
-        articleApiService.createComment(data,() => {callback})
+        articleApiService.createComment(data,callback)
     }
 
     $scope.deferWarning = function()
@@ -87,18 +77,17 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
     $scope.articleObject = {article: null}
     $scope.content = "";
     $scope.title = "";
-
-    articleApiService.getArticle($scope.id).then((resp) => {
-        $scope.articleObject.article = resp.data;
-        $scope.content = $scope.articleObject.article.content;
-        $scope.title = $scope.articleObject.article.title;
-        console.log(resp);
-
-    },(error) => {
-        console.log(error)
-        $scope.title = "";
-        $scope.content = "";
-    })
+    if ($scope.id != 0) {
+        articleApiService.getArticle($scope.id).then((resp) => {
+            $scope.articleObject.article = resp.data;
+            $scope.content = $scope.articleObject.article.content;
+            $scope.title = $scope.articleObject.article.title;
+        }, (error) => {
+            console.log(error)
+            $scope.title = "";
+            $scope.content = "";
+        })
+    }
 
     $scope.showChanges = () => {
         console.log($scope.title)
