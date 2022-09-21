@@ -1,11 +1,11 @@
 <div ng-controller="articleEditController">
     <form>
-        <h1><input type="text" name="title" ng-model="title" placeholder="Title" onchange="showChanges()"></h1>
-        <textarea type="text" class="form-control" onchange="showChanges()" name ="content" rows="3" ng-model="content" placeholder="content"></textarea>
-        <button type="button" class="btn btn-primary" value="Submit" ng-click="submitArticle(title,content)">Submit</button>
+        <h1><input id="title_field" type="text" name="title" ng-model="title" placeholder="Title" onchange="showChanges()"></h1>
+        <textarea id="content_field" type="text" class="form-control" onchange="showChanges()" name ="content" rows="3" ng-model="content" placeholder="content"></textarea>
+        <button id="submit_button" type="button" class="btn btn-primary" value="Submit" ng-click="submitArticle(title,content)">Submit</button>
         <div ng-switch="id">
             <div ng-switch-when="0"></div>
-            <div ng-switch-default><button type="button" class="btn btn-danger" value="Delete" ng-click="deleteArticle()">Delete</button></div>
+            <div ng-switch-default><button id="delete_button" type="button" class="btn btn-danger" value="Delete" ng-click="deleteArticle()">Delete</button></div>
         </div>
 
     </form>

@@ -1,23 +1,23 @@
 
 <div ng-controller="articleController">
-    <h1>{{articleObject.article.title}}</h1>
-    <h4><a href="#!/edit/article/{{articleObject.article.id}}">Edit</a></h4>
+    <h1 id="article_title">{{articleObject.article.title}}</h1>
+    <h4><a id="article_edit" href="#!/edit/article/{{articleObject.article.id}}">Edit</a></h4>
     <div>
-        <p ng-bind-html="articleObject.article.content"></p>
+        <p id="article_content" ng-bind-html="articleObject.article.content"></p>
     </div>
     <div class="">
         <h1>Comments</h1>
         <iframe name="dummy" id="dummyframe" style="display:none;"></iframe>
-        <div *ng-if="warning" class="alert-danger">{{message}}</div>
+        <div *ng-if="warning" class="alert-danger" id="warning">{{message}}</div>
         <form novalidate>
-            <input type="text" name="username" ng-model="user" ng-change="deferWarning()" ng-required="expression" placeholder="username"/>
-            <textarea type="text" class="form-control" name="comment" rows="3" ng-model="comment" ng-change="deferWarning()"></textarea>
-            <input type="submit" ng-click="update($event, comment, user)" value="Submit">
+            <input id="comment_name" type="text" name="username" ng-model="user" ng-change="deferWarning()" ng-required="expression" placeholder="username"/>
+            <textarea id="comment_content" type="text" class="form-control" name="comment" rows="3" ng-model="comment" ng-change="deferWarning()"></textarea>
+            <input id="comment_submit" ctype="submit" ng-click="update($event, comment, user)" value="Submit">
         </form>
 
         <div ng-repeat="entry in comments" class="card">
-            <h5 class = "card-title">{{entry.username}}</h5>
-            <div class = "card-body">{{entry.content}}</div>
+            <h5 class="card-title">{{entry.username}}</h5>
+            <div class="card-body">{{entry.content}}</div>
         </div>
     </div>
 

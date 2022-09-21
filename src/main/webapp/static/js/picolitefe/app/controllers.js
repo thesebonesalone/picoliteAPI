@@ -24,15 +24,17 @@ angular.module('PicoLiteMVC.controllers', ['ngSanitize'])
         })
     }
 })
-.controller('articleController', ($scope, $routeParams, $route, articleApiService) => {
+.controller('articleController', ($scope, $routeParams, $route, $location, articleApiService) => {
     $scope.id = $routeParams.id;
     $scope.articleObject = {article: null}
     $scope.comments = [];
 
     articleApiService.getArticle($scope.id).then((resp) => {
+        console.log(resp)
         $scope.articleObject.article = resp.data;
         $scope.comments = resp.data.comments;
-
+    }).catch((e) => {
+        $location.url("http://localhost:8080/32");
     })
 
     $scope.update = function(event)
